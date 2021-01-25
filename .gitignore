@@ -1,6 +1,6 @@
 __pycache__/
 *.pyc
-app/distilbert-base-uncased-finetuned-sst-2-english
+app/distilbert-base-uncased-finetuned-sst-2-english/
 .vscode
 *.code-workspace
 
