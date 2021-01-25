@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+
+.vscode
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+get_models.py

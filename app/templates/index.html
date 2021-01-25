@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script>
+$(document).ready(function() {
+    $("#text_modal").click(function() {
+        $('.ui.modal').modal('show');
+    });
+
+    $("#sent_analysis").click(function() {
+        var text = $("#sentiment_text").val();
+        $.ajax({
+            url: "/sentiment",
+            type: "POST",
+            contentType: 'application/json',
+            data: JSON.stringify({"input": text}),
+            dataType: 'json',
+            success: function(response, status, jqXHR) {
+                var result = response
+                // $("#text_modal").hide()
+                // $("#result" ).text("Sentiment: "+result.output);
+                window.location.href = "sentiment/"+result.output
+            },
+        });
+    $('.ui.modal').modal('hide');
+    });
+});
+</script>
+
+<button id="text_modal" class="ui button">Sentiment Analysis</button>
+
+<div id="result" class="container" ></div>
+
+<div class="ui modal">
+    <div class="header">Sentiment Analysis</div>
+    <div class="content">
+        <div class="ui form">
+            <div class="field">
+              <label>Enter Text</label>
+              <textarea id="sentiment_text"></textarea>
+            </div>
+          </div>
+    </div>
+    <div class="actions">
+        <div id="sent_analysis" class="ui button">Analyse</div>
+    </div>
+</div>
+{% endblock %}
