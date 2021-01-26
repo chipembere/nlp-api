@@ -11,15 +11,12 @@ Clone this repo cd into app directory and clone the model.
 
 ```python3 get_model.py```
 
-### Run Locally
-From root directory.
-
 ## Build Image
 
 Run ```docker-compose up --build```
 
 This will take some time.
-Once building is finished 
+Once building is finished go [to] (http://localhost:8080) or (http://127.0.0.1:8080)
 
 # Provision AWS EKS and Deploy App
 
