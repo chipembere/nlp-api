@@ -18,9 +18,9 @@ An aws account.
 
 This command will spin-up a contatiner, copy files in the current directory
 to a work directory inside the container,open a terminal from within the container to interact with amazon cli.
-<docker run -it --rm -v ${PWD}:/work -w /work entrypoint /bin/sh amazon/aws-cli>
+<docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /bin/sh amazon/aws-cli>
 
-Installed uitilities in the container
+Install uitilities in the container.
 <yum install -y jq gzip nano git unzip wget>
 
 ## Access to aws account
