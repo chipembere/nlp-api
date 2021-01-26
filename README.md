@@ -1,19 +1,25 @@
 # NLP-API
 
-This ia a sentiment analysis app served on aws eks using terraform as IaC.
+This a sentiment analysis app served on aws eks using terraform as IaC.
+
+## Run API locally
 
 ### Add model
-```cd app```
+Clone this repo cd into app directory and clone the model.
+
+```cd nlp_aws_terraform/app```
 ```git clone https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english```
 
-# Run Locally
-From root directory
+### Run Locally
+From root directory.
 Run ```docker-compose up --build```
+Building the image will take some time.
 
-# Provision AWS EKS
+# Provision AWS EKS and Deploy App
 
 You need to have docker installed.
 An aws account.
+
 ## Init
 
 This command will spin-up a contatiner, copy files in the current directory
