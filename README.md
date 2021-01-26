@@ -7,8 +7,8 @@ This ia a sentiment analysis app served on aws eks using terraform as IaC.
 ```git clone https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english```
 
 # Run Locally
-
-```docker-compose up --build```
+From root directory
+Run ```docker-compose up --build```
 
 # Provision AWS EKS
 
