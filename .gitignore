@@ -8,3 +8,8 @@ app/distilbert-base-uncased-finetuned-sst-2-english/
 
 # Local History for Visual Studio Code
 .history/
+
+# TF state
+tf/.terraform*
+tf/terraform.tfstate*
+tf/terraform.tfstate.1611813519.backup
