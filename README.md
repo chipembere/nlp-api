@@ -47,9 +47,16 @@ The terraform download page has the details on how to download and the link
 Unzip terraform
 <unzip /tmp/terraform.zip>
 Move terraform to local bin
-<chmod +x terraform && terraform /usr/local/bin>
+<chmod +x terraform &&  mv terraform /usr/local/bin>
 
 ## Building Infractructure
+
+```cd tf```
+```terraform init```
+```terraform plan```
+```terraform apply```
+Clean-up
+```terraform apply```
 
 https://github.com/terraform-aws-modules
 
