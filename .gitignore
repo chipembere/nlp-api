@@ -3,5 +3,8 @@ __pycache__/
 .vscode
 *.code-workspace
 
+# Model file
+app/distilbert-base-uncased-finetuned-sst-2-english/
+
 # Local History for Visual Studio Code
 .history/

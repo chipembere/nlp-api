@@ -38,7 +38,7 @@ In the terminal run <aws configure>
 Enter - AWS Access Key ID
 Enter - Secrete Access Key ID
 Enter - Default region name
-Enter - Out format
+Enter - Output format
 
 ## Terraform install 
 https://www.terraform.io/downloads.html
