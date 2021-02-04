@@ -11,5 +11,4 @@ app/distilbert-base-uncased-finetuned-sst-2-english/
 
 # TF state
 tf/.terraform*
-tf/terraform.tfstate*
-tf/terraform.tfstate.1611813519.backup
+tf/terraform.*
