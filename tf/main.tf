@@ -56,7 +56,7 @@ resource "aws_security_group" "wide_group" {
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
 
-  name                 = "test-vpc"
+  name                 = "nlp-vpc"
   cidr                 = "10.0.0.0/16"
 
   azs                  = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
@@ -91,7 +91,7 @@ module "eks" {
     {
       name                          = "worker-group-1"
       instance_type                 = "t2.small"
-      additional_userdata           = "echo foo bar"
+      # additional_userdata           = "echo foo bar"
       asg_desired_capacity          = 1
       additional_security_group_ids = [aws_security_group.sec_grp_one.id]
     },
