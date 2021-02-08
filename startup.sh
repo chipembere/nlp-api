@@ -9,10 +9,13 @@ else
     exit 0
 fi
 
-aws configure set "${AWS_KEY_ENV}"
-aws configure set "${AWS_KEY_ENV}"
-aws configure set "${AWS_KEY_ENV}"
-aws configure set "${AWS_KEY_ENV}"
+# aws configure set "${AWS_KEY_ENV}"
+# aws configure set "${AWS_KEY_ENV}"
+# aws configure set "${AWS_KEY_ENV}"
+# aws configure set "${AWS_KEY_ENV}"
 
 # yum install -y jq gzip nano git unzip wget
 
+# curl -o /tmp/terraform.zip -LO https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_linux_amd64.zip
+# <unzip /tmp/terraform.zip>
+# <chmod +x terraform &&  mv terraform /usr/local/bin>

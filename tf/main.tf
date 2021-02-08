@@ -114,7 +114,7 @@ resource "kubernetes_deployment" "nlp-api" {
   metadata {
     name = "nlp-api"
     labels = {
-      test = "Nlp-App"
+      app = "nlp-app"
     }
   }
 
@@ -123,14 +123,14 @@ resource "kubernetes_deployment" "nlp-api" {
 
     selector {
       match_labels = {
-        test = "Nlp-App"
+        app = "nlp-app"
       }
     }
 
     template {
       metadata {
         labels = {
-          test = "Nlp-App"
+          app = "nlp-app"
         }
       }
 
@@ -161,7 +161,7 @@ resource "kubernetes_service" "nlp-api-load" {
   }
   spec {
     selector = {
-      test = "Nlp-App-Load"
+      tapp = "nlp-app"
     }
     port {
       port        = 8080
