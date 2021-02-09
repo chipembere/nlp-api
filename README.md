@@ -29,6 +29,9 @@ This command will spin-up a contatiner, copy files in the current directory
 to a work directory inside the container,open a terminal from within the container to interact with amazon cli.
 <docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /bin/sh amazon/aws-cli>
 
+Run startup.sh script
+```docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /work/startup.sh amazon/aws-cli```
+
 Install uitilities in the container.
 <yum install -y jq gzip nano git unzip wget>
 
