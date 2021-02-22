@@ -6,4 +6,4 @@ COPY ./app /app
 RUN python3 -m pip install --no-cache-dir -r app/requirements.txt \
     && rm -rf /root/.cache/pip
 WORKDIR /app
-CMD ["uvicorn", "main:api", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["bash", "container-startup.sh"]

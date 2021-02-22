@@ -1,21 +1,31 @@
 # NLP-API
 
-This a sentiment analysis app served on aws eks using terraform as IaC.
+This a simple sentiment analysis app served on aws eks using terraform as IaC.
+Will detail how to run the application locally using minikube and the show the IaC details.
 
 ## Run APP locally
-
-### Add model
-Clone this repo cd into app directory and clone the model.
-
-```cd nlp-api```
-
-```python3 get_model.py```
 
 ## Build Image
 
 Run ```docker-compose up --build```
 It takes ~6min to build the image
 Once building is finished go [to] (http://localhost:8080) or (http://127.0.0.1:8080)
+
+# Minikube
+
+To deploy the container, an internal service for the container and create an ingress rule.
+
+```
+cd k8s/
+kubectl apply -f nlp-api-deployment.yml # Deploy pod
+kubectl apply -f service.yml # Internal service
+kubectl apply -f ingress.yml # Apply ingress rule
+```
+Mapping domain locally
+```kubectl get ingress nlp-api-ingress```
+Copy the ip address and map it to nlp-api.com in /etc/hosts
+```sudo code /etc/hosts```
+```nlp-api.com 192.167.65.2```
 
 # Provision AWS EKS and Deploy App
 
@@ -62,19 +72,4 @@ Clean-up
 
 https://github.com/terraform-aws-modules
 
-# Minikube
-
-To deploy the container, an internal service for the container and create an ingress rule.
-
-```
-cd k8s/
-kubectl apply -f nlp-api-deployment.yml # Deploy pod
-kubectl apply -f service.yml # Internal service
-kubectl apply -f ingress.yml # Apply ingress rule
-```
-Mapping domain locally
-```kubectl get ingress nlp-api-ingress```
-Copy the ip address and map it to nlp-api.com in /etc/hosts
-```sudo code /etc/hosts```
-```nlp-api.com 192.167.65.2```
 

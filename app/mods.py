@@ -2,8 +2,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipe
 
 class MODS:
     def __init__(self):
-        self.tokenizer = AutoTokenizer.from_pretrained("app/distilbert-base-uncased-finetuned-sst-2-english")
-        self.model = AutoModelForSequenceClassification.from_pretrained("app/distilbert-base-uncased-finetuned-sst-2-english")
+        self.tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
+        self.model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
 
     def pipeline_sent(self,text:str):
         classifier = pipeline('sentiment-analysis', model=self.model, tokenizer=self.tokenizer)

@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from mods import MODS
 from views import home, result
-from get_models import get_model
 
 api = FastAPI()
 
