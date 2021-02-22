@@ -5,9 +5,14 @@ __pycache__/
 
 # Model file
 app/distilbert-base-uncased-finetuned-sst-2-english/
+app/app/distilbert-base-uncased-finetuned-sst-2-english/
 
 # Local History for Visual Studio Code
 .history/
+.dockerignore
+
+# Kubernetes
+k8s/
 
 # TF state
 tf/.terraform*

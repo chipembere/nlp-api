@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from mods import MODS
 from views import home, result
+from get_models import get_model
 
 api = FastAPI()
 
@@ -13,5 +14,4 @@ def configure():
 configure()
 
 if __name__ == '__main__':
-
     uvicorn.run("main:api",host="0.0.0.0", port=8080, reload=True, debug=True)

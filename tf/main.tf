@@ -136,19 +136,19 @@ resource "kubernetes_deployment" "nlp-api" {
 
       spec {
         container {
-          image = "chipembere13/nlp-api"
+          image = "chipembere13/npl-api:latest"   
           name  = "nlp-api"
 
-          resources {
-            limits = {
-              cpu    = "0.5"
-              memory = "512Mi"
-            }
-            requests = {
-              cpu    = "250m"
-              memory = "50Mi"
-            }
-          }
+          # resources {
+          #   limits = {
+          #     cpu    = "0.5"
+          #     memory = "512Mi"
+          #   }
+          #   requests = {
+          #     cpu    = "250m"
+          #     memory = "50Mi"
+          #   }
+          # }
         }
       }
     }
@@ -161,7 +161,7 @@ resource "kubernetes_service" "nlp-api-load" {
   }
   spec {
     selector = {
-      tapp = "nlp-app"
+      app = "nlp-app"
     }
     port {
       port        = 8080
