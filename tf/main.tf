@@ -90,7 +90,7 @@ module "eks" {
   worker_groups = [
     {
       name                          = "worker-group-1"
-      instance_type                 = "t2.small"
+      instance_type                 = "t3.micro"
       # additional_userdata           = "echo foo bar"
       asg_desired_capacity          = 1
       additional_security_group_ids = [aws_security_group.sec_grp_one.id]
@@ -119,7 +119,7 @@ resource "kubernetes_deployment" "nlp-api" {
   }
 
   spec {
-    replicas = 2
+    replicas = 1
 
     selector {
       match_labels = {
