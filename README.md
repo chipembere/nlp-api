@@ -7,8 +7,8 @@ Will detail how to run the application locally using minikube and the show the I
 
 ## Build Image
 
-Run ```docker-compose up --build```
-It takes ~6min to build the image
+Run ```docker-compose up --build``` \
+It takes ~6min to build the image \
 Once building is finished go [to] (http://localhost:8080) or (http://127.0.0.1:8080)
 
 # Minikube
@@ -23,8 +23,8 @@ kubectl apply -f ingress.yml # Apply ingress rule
 ```
 Mapping domain locally
 ```kubectl get ingress nlp-api-ingress```
-Copy the ip address and map it to nlp-api.com in /etc/hosts
-```sudo code /etc/hosts```
+Copy the ip address and map it to nlp-api.com in /etc/hosts \
+```sudo code /etc/hosts``` \
 ```nlp-api.com 192.167.65.2```
 
 On completion going to ```nlp-api.com``` in the browser should take you to the app home page.
@@ -52,21 +52,21 @@ Enter - Output format
 
 ## Terraform install 
 https://www.terraform.io/downloads.html
-The terraform download page has the details on how to download and the link
+The terraform download page has the details on how to download and the link. \
 ```curl -o /tmp/terraform.zip -LO https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_linux_amd64.zip```
-Unzip terraform
-```unzip /tmp/terraform.zip```
-Move terraform to local bin
+Unzip terraform \
+```unzip /tmp/terraform.zip``` \
+Move terraform to local bin \
 ```chmod +x terraform &&  mv terraform /usr/local/bin```
 
 ## Building Infractructure
 
 Configure your terraform files, terraform configuration details [here] (https://github.com/terraform-aws-modules). Then run the commands:
-```cd tf```
-```terraform init```
-```terraform plan```
-```terraform apply```
-Clean-up
+```cd tf``` \
+```terraform init``` \
+```terraform plan``` \
+```terraform apply``` \
+Clean-up \
 ```terraform destroy```
 
 # On Going Work
