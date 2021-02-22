@@ -53,9 +53,9 @@ Enter - Output format
 ## Terraform install 
 https://www.terraform.io/downloads.html
 The terraform download page has the details on how to download and the link
-<curl -o /tmp/terraform.zip -LO https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_linux_amd64.zip>
+```curl -o /tmp/terraform.zip -LO https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_linux_amd64.zip```
 Unzip terraform
-<unzip /tmp/terraform.zip>
+```unzip /tmp/terraform.zip```
 Move terraform to local bin
 ```chmod +x terraform &&  mv terraform /usr/local/bin```
 
