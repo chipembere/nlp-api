@@ -44,15 +44,16 @@ Install uitilities in the container.
 
 ## Access to aws account
 Create acces key from your amazon account in (My security credentials).
-In the terminal run <aws configure>
+In the terminal run \ 
+```aws configure```
 Enter - AWS Access Key ID
 Enter - Secrete Access Key ID
 Enter - Default region name
 Enter - Output format
 
 ## Terraform install 
-https://www.terraform.io/downloads.html
-The terraform download page has the details on how to download and the link. \
+
+The terraform download [page] (https://www.terraform.io/downloads.html) has the details on how to download and the link. \
 ```curl -o /tmp/terraform.zip -LO https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_linux_amd64.zip``` \
 Unzip terraform \
 ```unzip /tmp/terraform.zip``` \
@@ -68,6 +69,14 @@ Configure your terraform files, terraform configuration details [here] (https://
 ```terraform apply``` \
 Clean-up \
 ```terraform destroy```
+
+## Troubleshooting
+
+List resources
+```terraform state list``` 
+
+Remove a resource \
+```terraform state rm <resource>``` \ 
 
 # On Going Work
 

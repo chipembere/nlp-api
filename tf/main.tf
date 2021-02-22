@@ -114,7 +114,7 @@ resource "kubernetes_deployment" "nlp-api" {
   metadata {
     name = "nlp-api"
     labels = {
-      app = "nlp-app"
+      app = "nlp-api"
     }
   }
 
@@ -123,20 +123,20 @@ resource "kubernetes_deployment" "nlp-api" {
 
     selector {
       match_labels = {
-        app = "nlp-app"
+        app = "nlp-api"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "nlp-app"
+          app = "nlp-api"
         }
       }
 
       spec {
         container {
-          image = "chipembere13/npl-api:latest"   
+          image = "chipembere13/nlp-api:latest"   
           name  = "nlp-api"
 
           # resources {
@@ -161,7 +161,7 @@ resource "kubernetes_service" "nlp-api-load" {
   }
   spec {
     selector = {
-      app = "nlp-app"
+      app = "nlp-api"
     }
     port {
       port        = 8080
