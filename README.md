@@ -13,7 +13,7 @@ Once building is finished go [to] (http://localhost:8080) or (http://127.0.0.1:8
 
 # Minikube
 
-To deploy the container, an internal service for the container and create an ingress rule.
+To deploy the container, apply an internal service for the container and create an ingress rule.
 
 ```
 cd k8s/
@@ -27,16 +27,17 @@ Copy the ip address and map it to nlp-api.com in /etc/hosts
 ```sudo code /etc/hosts```
 ```nlp-api.com 192.167.65.2```
 
+On completion going to ```nlp-api.com``` in the browser should take you to the app home page.
+
 # Provision AWS EKS and Deploy App
 
-You need to have docker installed.
-An aws account.
+You need to have docker installed and a aws account.
 
 ## Init
 
 This command will spin-up a contatiner, copy files in the current directory
 to a work directory inside the container,open a terminal from within the container to interact with amazon cli.
-<docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /bin/sh amazon/aws-cli>
+```docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /bin/sh amazon/aws-cli```
 
 Run startup.sh script
 ```docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /work/startup.sh amazon/aws-cli```
@@ -63,13 +64,10 @@ Move terraform to local bin
 
 ## Building Infractructure
 
+Configure your terraform files, terraform configuration details [here] (https://github.com/terraform-aws-modules). Then run the commands:
 ```cd tf```
 ```terraform init```
 ```terraform plan```
 ```terraform apply```
 Clean-up
-```terraform apply```
-
-https://github.com/terraform-aws-modules
-
-
+```terraform destroy```
