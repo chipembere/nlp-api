@@ -61,7 +61,7 @@ Move terraform to local bin \
 
 ## Building Infractructure
 
-Configure your terraform files, terraform configuration details [here] (https://github.com/terraform-aws-modules). Then run the commands:
+Configure your terraform files, terraform configuration details [here] (https://github.com/terraform-aws-modules). Then run the commands: \
 ```cd tf``` \
 ```terraform init``` \
 ```terraform plan``` \
@@ -71,6 +71,6 @@ Clean-up \
 
 # On Going Work
 
-## Provision with one command
-Run with startup.sh script (**Work in progress**)
+## Provision with one command 
+Run with startup.sh script (**Work in progress**) \
 ```docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /work/startup.sh amazon/aws-cli```
