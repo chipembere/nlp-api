@@ -1,14 +1,12 @@
 variable "region" {
-  default     = "eu-west-2"
-  description = "Region"
+  default = "eu-west-2"
 }
-
 variable "cluster_name" {
-  default = "nlp-eks"
+  default = "nlp-api"
 }
 
 variable "map_accounts" {
-  description = "AWS account numbers to add to aws-auth configmap."
+  description = "Additional AWS account numbers to add to the aws-auth configmap."
   type        = list(string)
 
   default = [

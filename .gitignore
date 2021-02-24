@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .vscode
 *.code-workspace
+*/.DS_Store
 
 # Model file
 app/distilbert-base-uncased-finetuned-sst-2-english/

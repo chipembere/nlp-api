@@ -1,5 +1,5 @@
 output "cluster_endpoint" {
-  description = "EKS control plane endpint."
+  description = "Endpoint for EKS control plane."
   value       = module.eks.cluster_endpoint
 }
 

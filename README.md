@@ -65,10 +65,34 @@ Move terraform to local bin \
 Configure your terraform files, terraform configuration details [here] (https://github.com/terraform-aws-modules). Then run the commands: \
 ```cd tf``` \
 ```terraform init``` \
+```terraform validate``` \
 ```terraform plan``` \
-```terraform apply``` \
+```terraform apply -auto-approve``` \
 Clean-up \
 ```terraform destroy```
+
+## Check deployment
+
+# Get eks config
+aws eks update-kubeconfig --name nlp-api --region eu-west-2
+
+# Get kubectl
+Install kubectl
+```
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mv ./kubectl /usr/local/bin/kubectl
+```
+
+```
+kubectl get nodes 
+kubectl get deploy
+kubectl get pods
+kubectl get svc
+```
+
+```kubectl describe nodes```
+
 
 ## Troubleshooting
 
@@ -77,6 +101,7 @@ List resources
 
 Remove a resource \
 ```terraform state rm <resource>``` \ 
+```terraform destroy -target --name=<resource>``` \ 
 
 # On Going Work
 

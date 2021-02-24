@@ -1,14 +1,20 @@
 terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-    }
-  }
 }
 
 provider "aws" {
-  profile = "default"
-  region  = var.region
+  region = var.region
+}
+
+provider "random" {
+}
+
+provider "local" {
+}
+
+provider "null" {
+}
+
+provider "template" {
 }
 
 data "aws_eks_cluster" "cluster" {
@@ -18,11 +24,21 @@ data "aws_eks_cluster" "cluster" {
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
-# Spin up security and define the group rules.
-resource "aws_security_group" "sec_grp_one" {
-  name_prefix = "sec_grp_one"
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}
+
+data "aws_availability_zones" "available" {
+}
+
+
+resource "aws_security_group" "worker_group_mgmt_one" {
+  name_prefix = "worker_group_mgmt_one"
   vpc_id      = module.vpc.vpc_id
-    # Managed with ssh at port 22
+
   ingress {
     from_port = 22
     to_port   = 22
@@ -34,8 +50,22 @@ resource "aws_security_group" "sec_grp_one" {
   }
 }
 
-# Wider group
-resource "aws_security_group" "wide_group" {
+resource "aws_security_group" "worker_group_mgmt_two" {
+  name_prefix = "worker_group_mgmt_two"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "192.168.0.0/16",
+    ]
+  }
+}
+
+resource "aws_security_group" "all_worker_mgmt" {
   name_prefix = "all_worker_management"
   vpc_id      = module.vpc.vpc_id
 
@@ -52,14 +82,12 @@ resource "aws_security_group" "wide_group" {
   }
 }
 
-# Open source github 
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
+  source = "terraform-aws-modules/vpc/aws"
 
-  name                 = "nlp-vpc"
+  name                 = "test-vpc"
   cidr                 = "10.0.0.0/16"
-
-  azs                  = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+  azs                  = data.aws_availability_zones.available.names
   private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets       = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
   enable_nat_gateway   = true
@@ -68,53 +96,58 @@ module "vpc" {
 
   public_subnet_tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/elb"                      = "1"
+    "kubernetes.io/role/elb"                    = "1"
   }
 
   private_subnet_tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb"             = "1"
+    "kubernetes.io/role/internal-elb"           = "1"
   }
 }
 
 module "eks" {
-  source       = "terraform-aws-modules/eks/aws"
+  source          = "terraform-aws-modules/eks/aws"
   cluster_name    = var.cluster_name
-  cluster_version = "1.17"
   subnets         = module.vpc.private_subnets
-  cluster_create_timeout = "30m"
-  cluster_endpoint_private_access = true 
+  cluster_version = "1.17"
+  tags = {
+    Environment = "test"
+    GithubRepo  = "terraform-aws-eks"
+    GithubOrg   = "terraform-aws-modules"
+  }
 
   vpc_id = module.vpc.vpc_id
 
   worker_groups = [
     {
       name                          = "worker-group-1"
-      instance_type                 = "t3.micro"
-      # additional_userdata           = "echo foo bar"
+      instance_type                 = "t3.medium"
+      additional_userdata           = "echo foo bar"
+      asg_desired_capacity          = 2
+      root_volume_type              = "gp2"
+      additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
+    },
+    {
+      name                          = "worker-group-2"
+      instance_type                 = "t3.medium"
+      additional_userdata           = "echo foo bar"
+      root_volume_type              = "gp2"
+      additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
       asg_desired_capacity          = 1
-      additional_security_group_ids = [aws_security_group.sec_grp_one.id]
     },
   ]
 
-  worker_additional_security_group_ids = [aws_security_group.wide_group.id]
+  worker_additional_security_group_ids = [aws_security_group.all_worker_mgmt.id]
   map_roles                            = var.map_roles
   map_users                            = var.map_users
   map_accounts                         = var.map_accounts
 }
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  # load_config_file       = false
-}
-
-resource "kubernetes_deployment" "nlp-api" {
+resource "kubernetes_deployment" "example" {
   metadata {
-    name = "nlp-api"
+    name = "terraform-example"
     labels = {
-      app = "nlp-api"
+      test = "MyExampleApp"
     }
   }
 
@@ -123,51 +156,41 @@ resource "kubernetes_deployment" "nlp-api" {
 
     selector {
       match_labels = {
-        app = "nlp-api"
+        test = "MyExampleApp"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "nlp-api"
+          test = "MyExampleApp"
         }
       }
 
       spec {
         container {
-          image = "chipembere13/nlp-api:latest"   
-          name  = "nlp-api"
-
-          # resources {
-          #   limits = {
-          #     cpu    = "0.5"
-          #     memory = "512Mi"
-          #   }
-          #   requests = {
-          #     cpu    = "250m"
-          #     memory = "50Mi"
-          #   }
-          # }
+          image = "chipembere13/nlp-api:latest"
+          name  = "example"
         }
       }
     }
   }
 }
-# Provision load balancer
-resource "kubernetes_service" "nlp-api-load" {
+
+resource "kubernetes_service" "example" {
   metadata {
-    name = "nlp-api"
+    name = "terraform-example"
   }
   spec {
     selector = {
-      app = "nlp-api"
+      test = "MyExampleApp"
     }
     port {
-      port        = 8080
+      port        = 80
       target_port = 8080
     }
 
     type = "LoadBalancer"
   }
 }
+
