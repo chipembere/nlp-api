@@ -73,17 +73,16 @@ Clean-up \
 
 ## Check deployment
 
-# Get eks config
-aws eks update-kubeconfig --name nlp-api --region eu-west-2
+First update kubeconfig 
+```aws eks update-kubeconfig --name nlp-api --region eu-west-2```
 
-# Get kubectl
 Install kubectl
 ```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 ```
-
+Kubernetes commands \
 ```
 kubectl get nodes 
 kubectl get deploy
@@ -91,20 +90,26 @@ kubectl get pods
 kubectl get svc
 ```
 
+## Troubleshooting
+
+**k8s**
+
 ```kubectl describe nodes```
 
-
-## Troubleshooting
+**terraform**
 
 List resources
 ```terraform state list``` 
 
 Remove a resource \
 ```terraform state rm <resource>``` \ 
-```terraform destroy -target --name=<resource>``` \ 
+```terraform destroy -target=<resource>``` \ 
 
-# On Going Work
+# On Going Work...
 
 ## Provision with one command 
+
+You would need to have a  ```config``` file with region and output format and a ```config``` with your aws_access_key_id and aws_secret_access_key in the directory you execute the below command in. 
+
 Run with startup.sh script (**Work in progress**) \
 ```docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /work/startup.sh amazon/aws-cli```
