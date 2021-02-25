@@ -9,7 +9,14 @@ $(document).ready(function() {
 
     $("#sent_analysis").click(function() {
         var text = $("#sentiment_text").val();
-        $.ajax({
+        if (text.length < 1) {
+            alert("Please paste/write something.")
+        }
+        else if (text.length > 2500) {
+            alert("Please reduce text to less than 2500 characters.")
+        }
+        else {
+            $.ajax({
             url: "/sentiment",
             type: "POST",
             contentType: 'application/json',
@@ -22,6 +29,7 @@ $(document).ready(function() {
                 window.location.href = "sentiment/"+result.output
             },
         });
+    }
     $('.ui.modal').modal('hide');
     });
 });
