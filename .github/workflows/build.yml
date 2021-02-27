@@ -9,7 +9,7 @@ jobs:
     steps:
       # Clone git repo onto this {{ ubuntu-latest}} node
       - uses: actions/checkout@v2
-      - name Docker login
+      - name: Docker login
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
