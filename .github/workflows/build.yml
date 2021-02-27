@@ -2,7 +2,7 @@ name: Build nlp-api image [Python 3.8]
 on: 
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
