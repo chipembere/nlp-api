@@ -1,11 +1,16 @@
 #!/bin/bash
-if [[ -d "distilbert-base-uncased-finetuned-sst-2-english" ]] ; then
-    echo "Model exists."
+if [[ -d "models/ProsusAI/finbert" ]] ; then
+    echo "Models exists."
 else 
-    echo "Model does not exist."
+    echo "No models."
     python3 get_models.py
     echo "Model downloaded."
 fi
 
-# ["uvicorn", "main:api", "--host", "0.0.0.0", "--port", "8080"]
-python3 main.py
+if [ "$1" = "dev" ]; then
+    echo "Dev enviroment request."
+    python3 main.py
+else
+    echo "Prod enviroment request."
+    python3 main.py
+fi

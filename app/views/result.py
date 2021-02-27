@@ -9,7 +9,7 @@ class Messsage(BaseModel):
     input: str
     output: str = None
 
-models = MODS()
+sent_model = MODS("ProsusAI/finbert")
 templates = Jinja2Templates("templates/")
 router = fastapi.APIRouter()
 
@@ -18,7 +18,7 @@ async def sentiment(request: Request, message: Messsage, response_class=HTMLResp
     '''
     Sentiment analysis on requested text
     '''
-    message.output = models.pipeline_sent(message.input)
+    message.output = sent_model.pipeline_sent(message.input)
     return {"output":message.output}
 
 @router.get('/sentiment/{message}')

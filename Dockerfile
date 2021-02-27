@@ -6,4 +6,4 @@ COPY ./app /app
 RUN python3 -m pip install --no-cache-dir -r app/requirements.txt \
     && rm -rf /root/.cache/pip
 WORKDIR /app
-CMD ["bash", "container-startup.sh"]
+CMD ["bash", "container-startup.sh", "prod"]

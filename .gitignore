@@ -4,9 +4,8 @@ __pycache__/
 *.code-workspace
 */.DS_Store
 
-# Model file
-app/distilbert-base-uncased-finetuned-sst-2-english/
-app/app/distilbert-base-uncased-finetuned-sst-2-english/
+# Models
+models
 
 # Local History for Visual Studio Code
 .history/
