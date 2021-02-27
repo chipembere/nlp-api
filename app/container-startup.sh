@@ -3,7 +3,7 @@ if [[ -d "models/ProsusAI/finbert" ]] ; then
     echo "Models exists."
 else 
     echo "No models."
-    python3 get_models.py
+    python3 utils/get_models.py
     echo "Model downloaded."
 fi
 
