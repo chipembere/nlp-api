@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Clone git repo onto this {{ ubuntu-latest}} node
+      # Clone git repo onto this {{ ubuntu-latest}} node.
       - uses: actions/checkout@v2
       - name: Docker login
         env:
